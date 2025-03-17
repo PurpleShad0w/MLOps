@@ -18,6 +18,8 @@ def encode_features(dataset: pd.DataFrame) -> pd.DataFrame:
         features.loc[features[label] == "nan", label] = "unknown"
         encoder = LabelEncoder()
         features.loc[:, label] = encoder.fit_transform(features.loc[:, label].copy())
+        # Cast en int
+        features[label] = features[label].astype(int)
         encoders.append((label, encoder))
 
     features["weekday"] = features["weekday"].astype(int)
